@@ -11,6 +11,8 @@ Personally, I used it to get a sense of the cost of diversifying my portfolio vs
 ## How to run
 [Run online in a notebook](https://datalore.jetbrains.com/notebook/L5aLk8hKwv2yIZSG9YzZRV/kHifqtHaqFr1wYtTncq8Lw/)
 
+Created with [Jetbrains Datalore](https://datalore.jetbrains.com/notebooks). You can sign in with Google and click "clone to home folder" to edit the parameters.
+
 ## Notes:
 __The following far-fetched assumptions have been made to simplify the analysis:__
 * Both the stock and index have a fixed, evenly-distributed average monthly return. For example, if the average annual return is set to 8%, the monthly return needs to be 0.643% to compound to 8% annually.
