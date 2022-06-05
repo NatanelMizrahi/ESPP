@@ -27,6 +27,7 @@ MONTHLY_DEPOSIT = 1000
 
 
 def compare_espp_vs_index_investment(
+		buy_with_lowest_stock_price_in_period: bool = BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD,
 		expected_avg_index_annual_return_percent: float = EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT,
 		expected_avg_espp_annual_return_percent: float = EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT,
 		monthly_desposit: float = MONTHLY_DEPOSIT,
@@ -48,14 +49,20 @@ def compare_espp_vs_index_investment(
 	avg_espp_monthly_return = ((1 + avg_stock_annual_return) ** (1 / 12)) - 1
 
 	espp_compound_return_discount_rate = 0
-	if BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD:
+	if buy_with_lowest_stock_price_in_period:
 		# When the stock is bought with the lowest price in the period, assuming an evenly-distibuted average monthly return, the additional discount will be equivalent to the compund return in this period
 		# For example: if a stock is up 50% in 3 months, we can add those 50% to the discount
 		espp_compound_return_discount_rate = ((1 + avg_espp_monthly_return) ** ESPP_PURCHASE_INTERVAL_MONTHS) - 1
 
 	espp_interval_deposit_sum = monthly_desposit * espp_purchase_interval_months
-	espp_purchase_value = espp_interval_deposit_sum / (1 - espp_compound_return_discount_rate - espp_fixed_discount_rate)
-	espp_period_tax_deduction = espp_fixed_discount_rate * tax_tier * monthly_desposit * espp_purchase_interval_months
+
+	total_discount_rate = espp_fixed_discount_rate + espp_compound_return_discount_rate
+	# the value of the purchased stocks is inverse to (1 - total discount).
+	# For example, if the total discount is 50% we get twice as many stocks: (1 / (1 - 0.5)) = 2.
+	espp_purchase_value = espp_interval_deposit_sum / (1 - total_discount_rate)
+
+	total_discount = espp_purchase_value - espp_interval_deposit_sum
+	espp_period_tax_deduction = total_discount * tax_tier
 
 	df = pd.DataFrame(columns=['ESPP', 'Index', 'Ratio'])
 
