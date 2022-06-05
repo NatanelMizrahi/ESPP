@@ -5,6 +5,9 @@ The values shown are the projected total holdings over time and the ratio betwee
 
 Provides both a plot and tabular data
 
+
+Personally, I used it to get a sense of the cost of diversifying my portfolio vs. "putting all the eggs in one basket".
+
 ## How to run
 [Run online in a notebook](https://datalore.jetbrains.com/notebook/L5aLk8hKwv2yIZSG9YzZRV/kHifqtHaqFr1wYtTncq8Lw/)
 
@@ -20,8 +23,7 @@ __The following far-fetched assumptions have been made to simplify the analysis:
 I am not a financial advisor. Do not take anything in this script as financial advice.
 
 ## Example
-![image](https://user-images.githubusercontent.com/20489303/172058793-0cd0c380-cff4-43b2-9170-9b27d29dce0a.png)
-
+![image](https://user-images.githubusercontent.com/20489303/172060353-7cff0d04-4040-45b8-9ad5-09625428d241.png)
 
 #### Example values in PyCharm debugger:
 ![image](https://user-images.githubusercontent.com/20489303/172056516-0a904a0b-e492-4529-8757-5df597762511.png)
