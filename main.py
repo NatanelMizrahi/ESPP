@@ -4,8 +4,19 @@ from matplotlib import pyplot as plt
 """
 HOW TO USE:
 Change the parameters above and run the script.
-"""
 
+NOTES:
+The following far-fetched assumptions have been made to simplify the analysis:
+* Both the stock and index have a fixed, evenly-distributed average monthly return. For example, if the average annual return is set to 8%, the monthly return needs to be 0.643% to compound to 8% annually.
+* The tax otherwise deducted in the ESPP option is used as an addition to the alternative investment in the index.
+* The stock's return is greater or equal to the index's return. why? 
+	(a) Simplification. This way, neglecting fees, using a quick-sell upon purchase and reinvesting the profits in an index is worse than or identical to keeping the stock.
+	(b) If you don't believe this is the case, you should seriously consider quitting your job 😛
+
+DISCLAIMER:
+I am not a financial advisor. Do not take anything in this script as financial advice.
+"""
+BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD = True
 EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT = 8
 EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT = 8
 ESPP_PURCHASE_INTERVAL_MONTHS = 3
@@ -27,7 +38,7 @@ def compare_espp_vs_index_investment(
 
 	avg_index_annual_return = expected_avg_index_annual_return_percent / 100
 	avg_stock_annual_return = expected_avg_espp_annual_return_percent / 100
-	espp_discount_rate = espp_discount_rate_percent / 100
+	espp_fixed_discount_rate = espp_discount_rate_percent / 100
 	tax_tier = tax_tier_percent / 100
 
 	# init iterative comparison
@@ -36,9 +47,15 @@ def compare_espp_vs_index_investment(
 	avg_index_monthly_return = ((1 + avg_index_annual_return) ** (1 / 12)) - 1
 	avg_espp_monthly_return = ((1 + avg_stock_annual_return) ** (1 / 12)) - 1
 
+	espp_compound_return_discount_rate = 0
+	if BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD:
+		# When the stock is bought with the lowest price in the period, assuming an evenly-distibuted average monthly return, the additional discount will be equivalent to the compund return in this period
+		# For example: if a stock is up 50% in 3 months, we can add those 50% to the discount
+		espp_compound_return_discount_rate = ((1 + avg_espp_monthly_return) ** ESPP_PURCHASE_INTERVAL_MONTHS) - 1
+
 	espp_interval_deposit_sum = monthly_desposit * espp_purchase_interval_months
-	espp_purchase_value = espp_interval_deposit_sum / (1 - espp_discount_rate)
-	espp_period_tax_deduction = espp_discount_rate * tax_tier * monthly_desposit * espp_purchase_interval_months
+	espp_purchase_value = espp_interval_deposit_sum / (1 - espp_compound_return_discount_rate - espp_fixed_discount_rate)
+	espp_period_tax_deduction = espp_fixed_discount_rate * tax_tier * monthly_desposit * espp_purchase_interval_months
 
 	df = pd.DataFrame(columns=['ESPP', 'Index', 'Ratio'])
 
