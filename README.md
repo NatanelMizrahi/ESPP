@@ -11,7 +11,7 @@ Personally, I used it to get a sense of the cost of diversifying my portfolio vs
 ## How to run
 [Run online in a notebook](https://datalore.jetbrains.com/notebook/L5aLk8hKwv2yIZSG9YzZRV/kHifqtHaqFr1wYtTncq8Lw/)
 
-# Notes:
+## Notes:
 __The following far-fetched assumptions have been made to simplify the analysis:__
 * Both the stock and index have a fixed, evenly-distributed average monthly return. For example, if the average annual return is set to 8%, the monthly return needs to be 0.643% to compound to 8% annually.
 * The tax otherwise deducted in the ESPP option is used as an addition to the alternative investment in the index.
@@ -19,7 +19,7 @@ __The following far-fetched assumptions have been made to simplify the analysis:
     * (a) Simplification. This way, neglecting fees, using a quick-sell upon purchase and reinvesting the profits in an index is worse than or identical to keeping the stock. 
     * (b) If you don't believe this is the case, you should seriously consider quitting your job 😛
 	
-# Disclaimer:
+## Disclaimer:
 I am not a financial advisor. Do not take anything in this script as financial advice.
 
 ## Example
