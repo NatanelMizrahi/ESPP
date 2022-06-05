@@ -1,5 +1,5 @@
 import pandas as pd
-from matplotlib import pyplot as plt
+import plotly.express as px
 
 """
 HOW TO USE:
@@ -16,7 +16,9 @@ The following far-fetched assumptions have been made to simplify the analysis:
 DISCLAIMER:
 I am not a financial advisor. Do not take anything in this script as financial advice.
 """
+Y_AXIS = 'Difference'  # 'Ratio' or 'Difference'
 BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD = True
+
 EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT = 8
 EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT = 8
 ESPP_PURCHASE_INTERVAL_MONTHS = 3
@@ -24,7 +26,6 @@ TAX_TIER_PERCENT = 47
 ESPP_DISCOUNT_RATE_PERCENT = 10
 N_INVESTMENT_YEARS = 10
 MONTHLY_DEPOSIT = 1000
-
 
 def compare_espp_vs_index_investment(
 		buy_with_lowest_stock_price_in_period: bool = BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD,
@@ -64,7 +65,7 @@ def compare_espp_vs_index_investment(
 	total_discount = espp_purchase_value - espp_interval_deposit_sum
 	espp_period_tax_deduction = total_discount * tax_tier
 
-	df = pd.DataFrame(columns=['ESPP', 'Index', 'Ratio'])
+	df = pd.DataFrame(columns=['ESPP', 'Index', 'Difference', 'Ratio'])
 
 	for month in range(n_investment_years * 12):
 		index_portfolio_value *= 1 + avg_index_monthly_return
@@ -79,10 +80,11 @@ def compare_espp_vs_index_investment(
 		df = df.append({
 			'ESPP': espp_portfolio_value,
 			'Index': index_portfolio_value,
+			'Difference': espp_portfolio_value - index_portfolio_value,
 			'Ratio': espp_portfolio_value / index_portfolio_value
 		},
 			ignore_index=True)
-
+	df = df.rename_axis('Month #')
 	return df
 
 
@@ -91,12 +93,8 @@ def plot_espp_vs_index_investment(df: pd.DataFrame):
 	pd.options.display.float_format = "{:,.2f}".format
 	print(df)
 
-	df['Ratio'].plot()
-	plt.locator_params(nbins=30)
-	plt.title('ESPP vs Index Investment')
-	plt.xlabel('Month')
-	plt.ylabel('ESPP / Index projected profit ratio')
-	plt.show()
+	fig = px.line(df, y=Y_AXIS, title='ESPP vs Stock Index Investment Projected Profit')
+	fig.show()
 
 
 if __name__ == '__main__':
