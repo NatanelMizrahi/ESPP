@@ -20,7 +20,8 @@ __The following far-fetched assumptions have been made to simplify the analysis:
 I am not a financial advisor. Do not take anything in this script as financial advice.
 
 ## Example
-![image](https://user-images.githubusercontent.com/20489303/171939232-bfa9fadc-8f13-47ca-9e4f-728aa14398c3.png)
+![image](https://user-images.githubusercontent.com/20489303/172058454-559ea3d4-62fd-46d2-90f6-d555db7e3d85.png)
+
 
 #### Example values in PyCharm debugger:
 ![image](https://user-images.githubusercontent.com/20489303/172056516-0a904a0b-e492-4529-8757-5df597762511.png)
