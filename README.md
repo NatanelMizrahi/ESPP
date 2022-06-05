@@ -21,3 +21,6 @@ I am not a financial advisor. Do not take anything in this script as financial a
 
 ## Example
 ![image](https://user-images.githubusercontent.com/20489303/171939232-bfa9fadc-8f13-47ca-9e4f-728aa14398c3.png)
+
+#### Example values in PyCharm debugger:
+![image](https://user-images.githubusercontent.com/20489303/172056516-0a904a0b-e492-4529-8757-5df597762511.png)
