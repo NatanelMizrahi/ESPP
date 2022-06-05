@@ -17,10 +17,12 @@ DISCLAIMER:
 I am not a financial advisor. Do not take anything in this script as financial advice.
 """
 Y_AXIS = 'Difference'  # 'Ratio' or 'Difference'
-BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD = True
 
-EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT = 8
-EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT = 8
+BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD = True
+QUICK_SELL_AND_REINVEST = True
+
+EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT = 7
+EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT = 9
 ESPP_PURCHASE_INTERVAL_MONTHS = 3
 TAX_TIER_PERCENT = 47
 ESPP_DISCOUNT_RATE_PERCENT = 10
@@ -29,6 +31,7 @@ MONTHLY_DEPOSIT = 1000
 
 def compare_espp_vs_index_investment(
 		buy_with_lowest_stock_price_in_period: bool = BUY_WITH_LOWEST_STOCK_PRICE_IN_PERIOD,
+		quick_sell_and_reinvest: bool = QUICK_SELL_AND_REINVEST,
 		expected_avg_index_annual_return_percent: float = EXPECTED_AVERAGE_INDEX_ANNUAL_RETURN_PERCENT,
 		expected_avg_espp_annual_return_percent: float = EXPECTED_AVERAGE_ESPP_ANNUAL_RETURN_PERCENT,
 		monthly_desposit: float = MONTHLY_DEPOSIT,
@@ -71,7 +74,8 @@ def compare_espp_vs_index_investment(
 		index_portfolio_value *= 1 + avg_index_monthly_return
 		index_portfolio_value += monthly_desposit
 
-		espp_portfolio_value *= 1 + avg_espp_monthly_return
+		espp_value_multiplier = avg_index_monthly_return if quick_sell_and_reinvest else avg_espp_monthly_return
+		espp_portfolio_value *= 1 + espp_value_multiplier
 		if (month != 0) and (month % espp_purchase_interval_months == 0):
 			espp_portfolio_value += espp_purchase_value
 			# NOTE: we can treat the deducted tax as an addition to the alternative investment to ESPP
