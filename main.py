@@ -76,7 +76,7 @@ def compare_espp_vs_index_investment(
 
 		espp_value_multiplier = avg_index_monthly_return if quick_sell_and_reinvest else avg_espp_monthly_return
 		espp_portfolio_value *= 1 + espp_value_multiplier
-		if (month != 0) and (month % espp_purchase_interval_months == 0):
+		if (month != 0) and ((month + 1) % espp_purchase_interval_months == 0):
 			espp_portfolio_value += espp_purchase_value
 			# NOTE: we can treat the deducted tax as an addition to the alternative investment to ESPP
 			index_portfolio_value += espp_period_tax_deduction
