@@ -5,5 +5,7 @@ The values shown are the projected total holdings over time and the ratio betwee
 
 Provides both a plot and tabular data
 
+## How to run
+[Run online in a notebook](https://datalore.jetbrains.com/notebook/L5aLk8hKwv2yIZSG9YzZRV/kHifqtHaqFr1wYtTncq8Lw/)
 ## Example
 ![image](https://user-images.githubusercontent.com/20489303/171939232-bfa9fadc-8f13-47ca-9e4f-728aa14398c3.png)
