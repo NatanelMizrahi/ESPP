@@ -108,7 +108,8 @@ def plot_espp_vs_index_investment(df: pd.DataFrame):
             y=df[column],
             name=column,
             mode='lines+markers',
-            hovertemplate='Month #: %{y}<br>Value: %{x}'
+            marker={'size': 5},
+            hovertemplate='Month #: %{x}<br>Total Value: %{y: .2f} $'
         ))
 
     fig.show()
